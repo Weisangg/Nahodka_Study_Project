@@ -1,0 +1,26 @@
+services:
+  frontend:
+    image: python:3.12-slim
+    working_dir: /app
+    command: ["python", "-m", "http.server", "8000", "--directory", "/app/dist"]
+    volumes:
+      - ./dist:/app/dist:ro
+    ports:
+      - "127.0.0.1:8000:8000"
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: nahodka
+      POSTGRES_USER: nahodka
+      POSTGRES_PASSWORD: nahodka_dev
+    ports:
+      - "127.0.0.1:15432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nahodka -d nahodka"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+volumes:
+  pgdata:

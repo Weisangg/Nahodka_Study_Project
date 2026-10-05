@@ -1,0 +1,1 @@
+{"name":"nahodka-frontend","version":"1.0.0","private":true,"type":"module","scripts":{"start":"python3 -m http.server 8000 --directory dist","check":"node --check dist/app.js && node --check dist/api.js && node --check dist/demo.js"}}
